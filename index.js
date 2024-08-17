@@ -1,0 +1,30 @@
+import express from "express";
+
+import { eventRouter } from "./routes/events.js";
+import { participantRouter } from "./routes/participants.js";
+import { classCodeRouter } from "./routes/classCode.js";
+import { departmentRouter } from "./routes/departments.js";
+import { memberRouter } from "./routes/members.js";
+import { markRouter } from "./routes/mark.js";
+import { authRouter } from "./controllers/auth.js";
+import { userRouter } from "./routes/users.js";
+import { statisticsRouter } from "./routes/statistics.js";
+
+const app = express();
+const port = 5050;
+
+app.use(express.json());
+
+app.use("/v1/events", eventRouter);
+app.use("/v1/participants", participantRouter);
+app.use("/v1/classcodes", classCodeRouter);
+app.use("/v1/departments", departmentRouter);
+app.use("/v1/members", memberRouter);
+app.use("/v1/mark", markRouter);
+app.use("/v1/users", userRouter);
+app.use("/v1/auth", authRouter);
+app.use("/v1/statistics", statisticsRouter);
+
+app.listen(port, () => {
+  console.log(`Server is running at http://localhost:${port}`);
+});
