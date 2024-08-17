@@ -11,7 +11,7 @@ import { userRouter } from "./routes/users.js";
 import { statisticsRouter } from "./routes/statistics.js";
 
 const app = express();
-const port = 5050;
+const port = 8080;
 
 app.use(express.json());
 
