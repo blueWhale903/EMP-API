@@ -11,7 +11,7 @@ import { userRouter } from "./routes/users.js";
 import { statisticsRouter } from "./routes/statistics.js";
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 5000;
 
 app.use(express.json());
 
@@ -24,7 +24,17 @@ app.use("/v1/mark", markRouter);
 app.use("/v1/users", userRouter);
 app.use("/v1/auth", authRouter);
 app.use("/v1/statistics", statisticsRouter);
+app.use("/", (req, res) => {
+  res.status(200).json({ success: true });
+});
 
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+export default app;
+
+app.listen(port, (err, res) => {
+  if (err) {
+    console.log(err);
+    return res.status(500).send(err.message);
+  } else {
+    console.log("[INFO] Server Running on port:", port);
+  }
 });
