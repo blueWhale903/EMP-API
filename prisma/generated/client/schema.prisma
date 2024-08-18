@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model events {
+  id             String           @id @db.VarChar(20)
+  name           String?
+  school_year    String?          @db.VarChar(5)
+  semester       Int?
+  category       String?          @db.VarChar(4)
+  category_index String?          @db.VarChar(1)
+  organization   String?          @db.VarChar(20)
+  start_date     DateTime?        @db.Date
+  end_date       DateTime?        @db.Date
+  description    String?
+  owner          String?          @db.VarChar(20)
+  status         Boolean?
+  users          users?           @relation(fields: [owner], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  participations participations[]
+}
+
+model mark_category {
+  id          Int     @id @default(autoincrement())
+  category    String? @db.VarChar(5)
+  achievement String? @db.VarChar(30)
+  reward_org  String? @db.VarChar(30)
+  note        String? @db.VarChar(10)
+  school_year String? @db.VarChar(5)
+  semester    Int?
+  mark        Int?
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model class_codes {
+  name          String       @id @db.VarChar(30)
+  department_id Int?
+  departments   departments? @relation(fields: [department_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  members       members[]
+}
+
+model users {
+  id            String       @id @db.VarChar(20)
+  name          String       @db.VarChar(40)
+  username      String
+  password      String
+  department_id Int?
+  department    String?
+  events        events[]
+  departments   departments? @relation(fields: [department_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model majors {
+  id             String           @id @db.VarChar(3)
+  name           String?
+  ctda           Boolean?
+  department_id  Int?
+  participations participations[]
+}
+
+model departments {
+  id          Int           @id
+  name        String?       @db.VarChar(40)
+  class_codes class_codes[]
+  members     members[]
+  users       users[]
+}
+
+model participations {
+  student_id  String  @db.VarChar(8)
+  name        String?
+  event_id    String  @db.VarChar(18)
+  note        String? @db.VarChar(10)
+  achievement String? @db.VarChar(30)
+  reward_org  String? @db.VarChar(30)
+  major_id    String? @db.VarChar(3)
+  mark        Int?
+  events      events  @relation(fields: [event_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  majors      majors? @relation(fields: [major_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([student_id, event_id])
+}
+
+model members {
+  id            String       @id @db.VarChar(8)
+  name          String?
+  class_code    String?      @db.VarChar(10)
+  department_id Int?
+  class_codes   class_codes? @relation(fields: [class_code], references: [name], onDelete: NoAction, onUpdate: NoAction)
+  departments   departments? @relation(fields: [department_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
