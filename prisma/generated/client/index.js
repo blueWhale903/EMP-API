@@ -31,12 +31,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 5.15.0
- * Query Engine version: 12e25d8d06f6ea5a0252864dd9a03b1bb51f3022
+ * Prisma Client JS version: 5.18.0
+ * Query Engine version: 4c784e32044a8a016d99474bd02a3b6123742169
  */
 Prisma.prismaVersion = {
-  client: "5.15.0",
-  engine: "12e25d8d06f6ea5a0252864dd9a03b1bb51f3022"
+  client: "5.18.0",
+  engine: "4c784e32044a8a016d99474bd02a3b6123742169"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -206,9 +206,14 @@ const config = {
         "fromEnvVar": null,
         "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
+    "sourceFilePath": "C:\\Users\\LENOVO\\1 Projects\\4 PERSONAL\\drl2\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -216,8 +221,8 @@ const config = {
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../..",
-  "clientVersion": "5.15.0",
-  "engineVersion": "12e25d8d06f6ea5a0252864dd9a03b1bb51f3022",
+  "clientVersion": "5.18.0",
+  "engineVersion": "4c784e32044a8a016d99474bd02a3b6123742169",
   "datasourceNames": [
     "db"
   ],
@@ -231,8 +236,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/client\"\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"DATABASE_URL\")\n  directUrl = env(\"DIRECT_URL\")\n}\n\nmodel events {\n  id             String           @id @db.VarChar(20)\n  name           String?\n  school_year    String?          @db.VarChar(5)\n  semester       Int?\n  category       String?          @db.VarChar(4)\n  category_index String?          @db.VarChar(1)\n  organization   String?          @db.VarChar(20)\n  start_date     DateTime?        @db.Date\n  end_date       DateTime?        @db.Date\n  description    String?\n  owner          String?          @db.VarChar(20)\n  status         Boolean?\n  users          users?           @relation(fields: [owner], references: [id], onDelete: NoAction, onUpdate: NoAction)\n  participations participations[]\n}\n\nmodel mark_category {\n  id          Int     @id @default(autoincrement())\n  category    String? @db.VarChar(5)\n  achievement String? @db.VarChar(30)\n  reward_org  String? @db.VarChar(30)\n  note        String? @db.VarChar(10)\n  school_year String? @db.VarChar(5)\n  semester    Int?\n  mark        Int?\n}\n\n/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.\nmodel class_codes {\n  name          String       @id @db.VarChar(30)\n  department_id Int?\n  departments   departments? @relation(fields: [department_id], references: [id], onDelete: NoAction, onUpdate: NoAction)\n  members       members[]\n}\n\nmodel users {\n  id            String       @id @db.VarChar(20)\n  name          String       @db.VarChar(40)\n  username      String\n  password      String\n  department_id Int?\n  department    String?\n  events        events[]\n  departments   departments? @relation(fields: [department_id], references: [id], onDelete: NoAction, onUpdate: NoAction)\n}\n\nmodel majors {\n  id             String           @id @db.VarChar(3)\n  name           String?\n  ctda           Boolean?\n  department_id  Int?\n  participations participations[]\n}\n\nmodel departments {\n  id          Int           @id\n  name        String?       @db.VarChar(40)\n  class_codes class_codes[]\n  members     members[]\n  users       users[]\n}\n\nmodel participations {\n  student_id  String  @db.VarChar(8)\n  name        String?\n  event_id    String  @db.VarChar(18)\n  note        String? @db.VarChar(10)\n  achievement String? @db.VarChar(30)\n  reward_org  String? @db.VarChar(30)\n  major_id    String? @db.VarChar(3)\n  mark        Int?\n  events      events  @relation(fields: [event_id], references: [id], onDelete: NoAction, onUpdate: NoAction)\n  majors      majors? @relation(fields: [major_id], references: [id], onDelete: NoAction, onUpdate: NoAction)\n\n  @@id([student_id, event_id])\n}\n\nmodel members {\n  id            String       @id @db.VarChar(8)\n  name          String?\n  class_code    String?      @db.VarChar(10)\n  department_id Int?\n  class_codes   class_codes? @relation(fields: [class_code], references: [name], onDelete: NoAction, onUpdate: NoAction)\n  departments   departments? @relation(fields: [department_id], references: [id], onDelete: NoAction, onUpdate: NoAction)\n}\n",
-  "inlineSchemaHash": "f93b149a8e2d91bf4ef925d23126df6c91a6bd07471bf7493fc4ebb4348672fc",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"./generated/client\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"DATABASE_URL\")\n  directUrl = env(\"DIRECT_URL\")\n}\n\nmodel events {\n  id             String           @id @db.VarChar(20)\n  name           String?\n  school_year    String?          @db.VarChar(5)\n  semester       Int?\n  category       String?          @db.VarChar(4)\n  category_index String?          @db.VarChar(1)\n  organization   String?          @db.VarChar(20)\n  start_date     DateTime?        @db.Date\n  end_date       DateTime?        @db.Date\n  description    String?\n  owner          String?          @db.VarChar(20)\n  status         Boolean?\n  users          users?           @relation(fields: [owner], references: [id], onDelete: NoAction, onUpdate: NoAction)\n  participations participations[]\n}\n\nmodel mark_category {\n  id          Int     @id @default(autoincrement())\n  category    String? @db.VarChar(5)\n  achievement String? @db.VarChar(30)\n  reward_org  String? @db.VarChar(30)\n  note        String? @db.VarChar(10)\n  school_year String? @db.VarChar(5)\n  semester    Int?\n  mark        Int?\n}\n\n/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.\nmodel class_codes {\n  name          String       @id @db.VarChar(30)\n  department_id Int?\n  departments   departments? @relation(fields: [department_id], references: [id], onDelete: NoAction, onUpdate: NoAction)\n  members       members[]\n}\n\nmodel users {\n  id            String       @id @db.VarChar(20)\n  name          String       @db.VarChar(40)\n  username      String\n  password      String\n  department_id Int?\n  department    String?\n  events        events[]\n  departments   departments? @relation(fields: [department_id], references: [id], onDelete: NoAction, onUpdate: NoAction)\n}\n\nmodel majors {\n  id             String           @id @db.VarChar(3)\n  name           String?\n  ctda           Boolean?\n  department_id  Int?\n  participations participations[]\n}\n\nmodel departments {\n  id          Int           @id\n  name        String?       @db.VarChar(40)\n  class_codes class_codes[]\n  members     members[]\n  users       users[]\n}\n\nmodel participations {\n  student_id  String  @db.VarChar(8)\n  name        String?\n  event_id    String  @db.VarChar(18)\n  note        String? @db.VarChar(10)\n  achievement String? @db.VarChar(30)\n  reward_org  String? @db.VarChar(30)\n  major_id    String? @db.VarChar(3)\n  mark        Int?\n  events      events  @relation(fields: [event_id], references: [id], onDelete: NoAction, onUpdate: NoAction)\n  majors      majors? @relation(fields: [major_id], references: [id], onDelete: NoAction, onUpdate: NoAction)\n\n  @@id([student_id, event_id])\n}\n\nmodel members {\n  id            String       @id @db.VarChar(8)\n  name          String?\n  class_code    String?      @db.VarChar(10)\n  department_id Int?\n  class_codes   class_codes? @relation(fields: [class_code], references: [name], onDelete: NoAction, onUpdate: NoAction)\n  departments   departments? @relation(fields: [department_id], references: [id], onDelete: NoAction, onUpdate: NoAction)\n}\n",
+  "inlineSchemaHash": "d1d3066167831e93338f0d6f5675a98ebac65f5cfb17f84136d421cb48338431",
   "copyEngine": true
 }
 
@@ -272,6 +277,10 @@ Object.assign(exports, Prisma)
 // file annotations for bundling tools to include these files
 path.join(__dirname, "query_engine-windows.dll.node");
 path.join(process.cwd(), "prisma/generated/client/query_engine-windows.dll.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-rhel-openssl-3.0.x.so.node");
+path.join(process.cwd(), "prisma/generated/client/libquery_engine-rhel-openssl-3.0.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "prisma/generated/client/schema.prisma")
