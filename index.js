@@ -1,4 +1,6 @@
 import express from "express";
+import compression from "compression";
+import Redis from "ioredis";
 
 import { eventRouter } from "./routes/events.js";
 import { participantRouter } from "./routes/participants.js";
@@ -14,6 +16,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(express.json());
+app.use(compression());
 
 app.use("/v1/events", eventRouter);
 app.use("/v1/participants", participantRouter);

@@ -6,13 +6,15 @@
   "scripts": {
     "dev": "nodemon ./index.js",
     "start": "node index.js",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "deploy": "firebase deploy --only functions:api"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.18.0",
     "bcrypt": "^5.1.1",
+    "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cookie-session": "^2.1.0",
     "express": "^4.19.2",
@@ -27,8 +29,5 @@
   "type": "module",
   "devDependencies": {
     "prisma": "^5.18.0"
-  },
-  "imports": {
-    "@": "./"
   }
 }

@@ -18,7 +18,7 @@ export async function getFilteredEvents(req, res) {
   const end_date = req.query.enddate;
   const department = req.query.department;
   const org_name = req.query.orgname;
-
+  console.log(category);
   let whereConditions = {
     school_year: schoolYear,
     semester: semester,
@@ -28,10 +28,13 @@ export async function getFilteredEvents(req, res) {
     whereConditions["name"] = {};
     whereConditions["name"].contains = name;
   }
+
   if (category) {
     whereConditions["category"] = {};
     whereConditions["category"].in = category.split(" ");
+    console.log(category, category.split(" "));
   }
+
   if (status) whereConditions["status"] = status == "Confirmed" ? true : false;
   if (start_date && end_date) {
     whereConditions["start_date"] = {
@@ -39,6 +42,7 @@ export async function getFilteredEvents(req, res) {
       gt: new Date(parseInt(start_date)),
     };
   }
+  console.log(new Date(parseInt(end_date)), new Date(parseInt(start_date)));
   whereConditions["users"] = {};
   if (department) {
     whereConditions.users.department_id = parseInt(department);
@@ -131,8 +135,6 @@ export async function getEventParticipants(req, res) {
       where: {
         event_id: id,
       },
-      take: limit,
-      skip: offset,
     });
 
     res.status(200).json({
