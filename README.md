@@ -1,3 +1,17 @@
-## EVENTS AND PARTICIPATIONS MANAGER
+# EVENTS AND PARTICIPATIONS MANAGER
 
-Easily manage your events, track participation, and ensure seamless coordination all in one place. Whether you're organizing a small workshop or a large-scale event, this dashboard gives you the tools to plan, monitor, and optimize every aspect of your event with real-time data, intuitive controls, and streamlined workflows. Get started today and make your event management experience smoother and more efficient!
+## Overview
+
+This Express.js API provides a robust system for managing student activities and participations in a university environment. It empowers users with functionalities to:
+
+- Manage Activities: Display activities data crawled from university website
+- Manage Students: Register, retrieve, update, and delete student information.
+- Manage Participations: Track student involvement in activities, including marking attendance and recording participation details.
+
+## Installation
+```
+git clone https://github.com/blueWhale903/EPM-API
+cd EPM-API
+npm install
+npm run dev
+```
